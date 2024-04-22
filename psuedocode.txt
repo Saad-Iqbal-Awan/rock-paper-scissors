@@ -1,0 +1,30 @@
+Create player 1 
+create player 2 
+player 1 chooses one option between rock paper or scissors 
+player 2 chooses one option between rock paper or scissors 
+the choices are compared: 
+    if one player has rock and other has paper, paper wins 
+    if one player has paper and other has scissors, scissors wins 
+    if one player has scissors and other has rock, rock wins
+
+
+Initialize human player - welcome message 
+Initialize computer player 
+Message that computer has chosen one option - random choice 
+Let user choose option between rock, paper or scissors
+make sure user types correct word 
+compare the two choices 
+Declare winner 
+or declare tie 
+run again
+
+
+
+Get variable between 0 and 3 - 0, 1 or 2 
+function getRandomInt() {
+  return Math.floor(Math.random() * 3);
+} 
+
+y = getRandomInt(3)
+
+if variable is 1, it means rock, 2 means scissors and 3 means paper
