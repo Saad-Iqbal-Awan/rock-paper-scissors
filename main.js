@@ -1,149 +1,138 @@
-// check external js file is linked using console
-console.log("it works")
+// I was thinking about it backwards - I was running the computer choice and then 
+// wanted the browser to wait for the user's choice. 
+// Instead, I should have only run computer choice, after user clicked on a button. 
+
+
 let humanScore = 0;
 let computerScore = 0;
 let humanChoice;
 let computerChoice;
 let round = 0;
+const humanScoreText = document.querySelector("#humanScoreText");
+const computerScoreText = document.querySelector("#computerScoreText")
 
-// Build function for computer to select one option
-function playGame() { 
-    for (i = 0; i < 5; i++) {
-        function getComputerChoice() { 
-            // Use math.floor and math.random to get function
-            // that gets one number from 3 numbers - 0, 1 or 2 
-            // MDN docs helped get the function - the math checks out - 
-            // multiplying by 3 and flooring it gets equal opp for 0, 1 or 2 
-            function getRandomInt() {
-                return Math.floor(Math.random() * 3);
-            }; 
+function initializeGame() {
+    const rockBtn = document.querySelector("#rock")
+    const paperBtn = document.querySelector("#paper");
+    const scissorsBtn = document.querySelector("#scissors");
+    const lastRound = document.querySelector("#lastRound");
+    console.log(lastRound);
+    
 
-            // create variable to store integer
-            let y; 
-            // run getRandom function to generate integer
-            y = getRandomInt();
-            // run if-else conditionals to assign rock as choice if 0 
-            // scissors in case of 1 and paper otherwise 
-            let computerChoice;
-            if (y === 0) {
-                computerChoice = "rock"
-            }
-            else if (y === 1) {
-                computerChoice = "paper"
-            }
-            else if (y === 2) {
-                computerChoice = "scissors"
-            }
-            // return the string 
-            return computerChoice;
+    rockBtn.addEventListener("click", () => {
+        humanChoice = "rock"; 
+        playRound();
+    });
+    
+    paperBtn.addEventListener("click", () => {
+        humanChoice = "paper";
+        playRound();
+    });
+    
+    scissorsBtn.addEventListener("click", () => {
+        humanChoice = "scissors"
+        playRound();
+    }); 
+    
+
+}
+
+function playRound() {
+    getComputerChoice();
+    console.log(humanChoice);
+    console.log(computerChoice);
+    if (humanChoice === "rock") {
+        if (computerChoice === "rock") {
+            lastRound.textContent = "tied";
+            console.log("tied");
+            humanScoreText.textContent = humanScore;
+            computerScoreText.textContent = computerScore;
         }
-        // new global variable - computerChoice which runs function to get it
-        computerChoice = getComputerChoice()
-        console.log("Computer choice: ", computerChoice) 
-        // create getHumanChoice function - 
-        // function asks user for string - prompt function 
-        // the string is converted to lowercase 
-        // the string is checked against rock, paper and scissors to 
-        // make sure that the option is right, else it runs the function again and gets human choice. 
-        // return human choice from within if and else and then from within function
-        function getHumanChoice() {
-            humanChoice = prompt("The computer has made its choice. Choose either rock, paper or scissors. Make sure to spell it correctly.");
-            // console.log(humanChoice);
-            humanChoice = humanChoice.toLowerCase(); 
-            // console.log(humanChoice);
-
-            if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
-                // console.log("great.");
-                return humanChoice;
-                }
-            else {
-                console.log("Please choose either rock, paper or scissors only - numbers and other input not allowed")
-                humanChoice = getHumanChoice();
-                    
-                }
-                return humanChoice
+    
+        else if (computerChoice === "paper") {
+            console.log("paper beats rock"); 
+            computerScore +=1;
+            lastRound.textContent = "paper beats rock";
+            humanScoreText.textContent = humanScore;
+            computerScoreText.textContent = computerScore;
         }
-
-        // global variable humanChoice runs the function to get rock, paper or scissor from user - case insensitive. 
-        humanChoice = getHumanChoice();
-        console.log("Human choice: ", humanChoice);
         
-        // write playRound function - 
-        // function takes in humanChoice and computerChoice             // it checks if humanChoice is rock and then runs three conditions and prints result and increments humanScore
-
-        function playRound(humanChoice, computerChoice) {
-            if (humanChoice === "rock") {
-                if (computerChoice === "rock") {
-                        console.log("tied");
-                    }
-                else if (computerChoice === "paper") {
-                    console.log("paper beats rock"); 
-                        computerScore +=1;
-                    }
-                else if (computerChoice === "scissors") {
-                        console.log("rock beats scissors");
-                        humanScore +=1;
-                    }
-                }
-
-            else if (humanChoice === "paper") {
-                    if (computerChoice === "paper") {
-                        console.log("tied");
-                    }
-                    else if (computerChoice === "rock") {
-                        console.log("paper beats rock"); 
-                        humanScore +=1;
-                    }
-                    else if (computerChoice === "scissors") {
-                        console.log("scissors beats paper");
-                        computerScore +=1;
-                    }
-                }
-
-            else if (humanChoice === "scissors") {
-                    if (computerChoice === "scissors") {
-                        console.log("tied");
-                    }
-                    else if (computerChoice === "paper") {
-                        console.log("scissors beats paper"); 
-                        humanScore +=1;
-                    }
-                    else if (computerChoice === "rock") {
-                        console.log("rock beats scissors");
-                        computerScore +=1;
-                    }
-                }
-
-            }
-
-            playRound(humanChoice, computerChoice);
-
-
-
+        else if (computerChoice === "scissors") {
+            console.log("rock beats scissors");
+            humanScore +=1;
+            lastRound.textContent = "rock beats scissors";
+            humanScoreText.textContent = humanScore;
+            computerScoreText.textContent = computerScore;
+        }
+    }
+                
+    else if (humanChoice === "paper") {
+        if (computerChoice === "paper") {
+        console.log("tied");
+        results.textContent = "tied";
+        humanScoreText.textContent = humanScore;
+        computerScoreText.textContent = computerScore;
+        }
         
-
+        else if (computerChoice === "rock") {
+            console.log("paper beats rock"); 
+            humanScore +=1;
+            results.textContent = "paper beats rock - computer score: " + humanScore;
+            humanScoreText.textContent = humanScore;
+            computerScoreText.textContent = computerScore;
+            
+        }
         
-
-        console.log(humanChoice);
-        console.log(computerChoice);
-        console.log("human score: ", humanScore);
-        console.log(computerScore);
-
+        else if (computerChoice === "scissors") {
+            console.log("scissors beats paper");
+            computerScore +=1;
+            results.textContent = "Scissors beats paper";
+            humanScoreText.textContent = humanScore;
+            computerScoreText.textContent = computerScore;
+        }
+    }
+                
+    
+    else if (humanChoice === "scissors") {
+        if (computerChoice === "scissors") {
+            console.log("tied");
+            results.textContent = "tied";
+        }
+        
+        else if (computerChoice === "paper") {
+            console.log("scissors beats paper"); 
+            humanScore +=1;
+        }
+        
+        else if (computerChoice === "rock") {
+            console.log("rock beats scissors");
+            computerScore +=1;
+        }
     }
 }
 
-playGame()
 
-if (humanScore >= 3) {
-    console.log("You win!");
+function getComputerChoice() { 
+
+                let randomNumber = function() {
+                    return Math.floor(Math.random() * 3);
+                }
+    
+                y = randomNumber();
+                
+                // let computerChoice;
+                if (y === 0) {
+                    computerChoice = "rock"
+                }
+                else if (y === 1) {
+                    computerChoice = "paper"
+                }
+                else if (y === 2) {
+                    computerChoice = "scissors"
+                }
+                // return the string 
+                return computerChoice;
 }
 
-else if (computerScore >= 3) {
-    console.log("Computer wins!");
-
-}
-
-else {
-    console.log("It's a tie!")
-}
+document.addEventListener("DOMContentLoaded", initializeGame);
 
